@@ -1,0 +1,21 @@
+version: '3'
+services:
+  naone.datastore:
+    build: ./datastore
+    volumes:
+      - /data/db:/data/db
+    networks:
+      - naone.network
+
+  naone.activity.api:
+    build: ./api
+    links:
+      - naone.datastore
+    ports:
+      - 38143:38143
+    networks:
+      - naone.network
+
+networks:
+  naone.network:
+    driver: bridge
